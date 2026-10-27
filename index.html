@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>StudyOS | Personal Learning System</title>
+<style>
+:root{color-scheme:dark;--bg:#07111f;--panel:#101e30;--line:#263950;--cyan:#55e6ff;--muted:#a1b2c8;--white:#eef7ff;--green:#79f2bd}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% 0%,#12304a 0,transparent 45%),var(--bg);color:var(--white);font:15px system-ui,-apple-system,sans-serif}button,input,select{font:inherit}button{cursor:pointer;color:var(--white);background:#19334a;border:1px solid #34516a;border-radius:10px;padding:10px 13px}button:hover{border-color:var(--cyan)}input,select{width:100%;background:#091626;color:var(--white);border:1px solid var(--line);border-radius:9px;padding:11px}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(25px,5vw,38px);margin-bottom:6px}h2{font-size:21px}h3{font-size:16px}.muted,.hint{color:var(--muted)}.hint{font-size:12px}.app{max-width:1250px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:10px 0 20px}.logo{color:var(--cyan);font-weight:800;letter-spacing:2px}.top-actions,.tabs,.actions{display:flex;gap:8px;flex-wrap:wrap}.tabs{margin:18px 0;overflow:auto}.tabs button.active{background:var(--cyan);color:#04121c;border-color:var(--cyan);font-weight:750}.hero{padding:25px;border:1px solid #2c5369;border-radius:20px;background:linear-gradient(120deg,#10283a,#0b1928);margin-bottom:18px}.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:2px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.panel,.subject{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}.stat{font-size:30px;font-weight:800;color:var(--cyan);margin:6px 0}.bar{height:7px;background:#24364a;border-radius:20px;overflow:hidden;margin:12px 0}.bar span{display:block;height:100%;background:linear-gradient(90deg,#36bdf3,var(--green));width:0}.section{margin:22px 0}.subject-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.subject{cursor:pointer}.subject:hover{border-color:var(--cyan)}.subject-top{display:flex;justify-content:space-between;gap:8px}.pill{font-size:11px;border:1px solid #34516a;border-radius:20px;padding:4px 8px;color:var(--cyan);white-space:nowrap}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.row label{display:flex;align-items:flex-start;gap:10px;flex:1}.row input[type=checkbox]{width:19px;min-width:19px;margin-top:2px;accent-color:var(--cyan)}.form{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.form input,.form select{flex:1;min-width:140px}.wide{grid-column:1/-1}.hidden{display:none!important}.empty{padding:25px;text-align:center;color:var(--muted)}.danger{border-color:#844954}.small{font-size:12px}.footer{border-top:1px solid var(--line);margin-top:30px;padding:18px 0;color:var(--muted);font-size:12px}
+@media(max-width:720px){.app{padding:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.subject-list{grid-template-columns:1fr}.hero{padding:19px}.panel{padding:14px}.top-actions button{padding:9px}.tabs{flex-wrap:nowrap}.tabs button{white-space:nowrap}}
+@media(max-width:390px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div><div class="logo">◈ STUDYOS</div><div class="hint">YOUR PERSONAL LEARNING SYSTEM</div></div>
+  <div class="top-actions">
+    <button onclick="exportData()">↧ Backup</button>
+    <button onclick="document.getElementById('restore').click()">↥ Restore</button>
+    <input id="restore" type="file" accept=".json,application/json" hidden onchange="importData(event)">
+  </div>
+</header>
+<nav class="tabs" id="tabs">
+  <button class="active" data-page="dashboard">⌂ Dashboard</button>
+  <button data-page="subjects">▤ Class 11</button>
+  <button data-page="tasks">✓ Tasks</button>
+  <button data-page="ca">◎ CA Journey</button>
+  <button data-page="settings">⚙ Settings</button>
+</nav>
+<main>
+<section id="dashboard" class="page">
+  <div class="hero">
+    <div class="eyebrow">PERSONAL COMMAND CENTRE / 01</div>
+    <h1>Build your future.<br><span style="color:var(--cyan)">One session at a time.</span></h1>
+    <p class="muted">Class 11 Commerce → CA → Beyond. Your progress, your pace.</p>
+    <div class="actions"><button onclick="showPage('subjects')">Open my subjects ↗</button><button onclick="showPage('tasks')">View tasks</button></div>
+  </div>
+  <div class="grid">
+    <div class="panel"><div class="muted">Topics completed</div><div class="stat" id="statDone">0</div><div class="hint" id="statTopics">Across your subjects</div></div>
+    <div class="panel"><div class="muted">Tasks remaining</div><div class="stat" id="statTasks">0</div><div class="hint">Your next steps</div></div>
+    <div class="panel"><div class="muted">Overall topic progress</div><div class="stat" id="statPercent">0%</div><div class="bar"><span id="overallBar"></span></div></div>
+  </div>
+  <div class="section panel"><h2>Today's focus</h2><p class="muted">Choose a small, achievable next step.</p><div id="todayList"></div><button onclick="showPage('tasks')">Manage tasks →</button></div>
+  <div class="section"><h2>Your subjects</h2><div class="subject-list" id="dashboardSubjects"></div></div>
+</section>
+<section id="subjects" class="page hidden">
+  <div class="section"><div class="eyebrow">CURRENT ACADEMIC STAGE</div><h1>Class 11 workspace</h1><p class="muted">Open a subject, track topics and build consistency.</p></div>
+  <div class="subject-list" id="subjectCards"></div>
+  <div class="panel section hidden" id="topicPanel"><div class="actions" style="justify-content:space-between"><div><div class="eyebrow">SUBJECT WORKSPACE</div><h2 id="topicTitle"></h2></div><button onclick="closeTopics()">← Back</button></div><div class="bar"><span id="subjectBar"></span></div><div id="topicList"></div><h3 style="margin-top:20px">Add a topic</h3><form class="form" id="topicForm"><input id="newTopic" placeholder="Topic name" required><button>Add topic</button></form></div>
+</section>
+<section id="tasks" class="page hidden">
+  <div class="section"><div class="eyebrow">PLAN / EXECUTE / REVIEW</div><h1>My tasks</h1><p class="muted">Keep your next actions visible and manageable.</p></div>
+  <div class="panel"><form id="taskForm" class="form"><input id="taskName" placeholder="What do you need to do?" required><select id="taskSubject"><option>General</option><option>Accountancy</option><option>Business Studies</option><option>Economics</option><option>Applied Mathematics</option><option>English</option><option>CA Foundation</option></select><input id="taskDate" type="date" aria-label="Due date"><button>Add task</button></form><div id="taskList"></div></div>
+</section>
+<section id="ca" class="page hidden">
+  <div class="section"><div class="eyebrow">LONG-TERM MISSION</div><h1>CA Journey</h1><p class="muted">A roadmap you can update as your goals and official syllabuses change.</p></div>
+  <div class="grid" id="stageCards"></div>
+  <div class="panel section"><h2>CA Foundation starter workspace</h2><p class="muted">Use these as planning categories, then check the official ICAI syllabus for your attempt.</p><div id="caSubjects"></div></div>
+</section>
+<section id="settings" class="page hidden">
+  <div class="section"><div class="eyebrow">YOUR DATA / YOUR RULES</div><h1>Settings & backups</h1></div>
+  <div class="panel"><h2>Data safety</h2><p class="muted">Your data is saved in this browser on this device. It does not automatically sync across devices. Clearing browser data can erase it, so export backups regularly.</p><div class="actions"><button onclick="exportData()">Download JSON backup</button><button onclick="document.getElementById('restore').click()">Restore JSON backup</button></div></div>
+  <div class="panel section"><h2>Academic stages</h2><div id="stageSettings"></div><form class="form" id="stageForm"><input id="stageName" placeholder="Add a stage, e.g. New qualification" required><button>Add stage</button></form></div>
+  <div class="panel section"><h2>Reset workspace</h2><p class="muted">This deletes saved StudyOS data from this browser. Download a backup first.</p><button class="danger" onclick="resetData()">Reset all local data</button></div>
+</section>
+</main>
+<footer class="footer">STUDYOS • Personal learning, built step by step • v1.0 • Local-first</footer>
+</div>
+<script>
+const starter = {
+ "Accountancy":["Theoretical Framework","Vouchers","Accounting Equation","Journal","Special-Purpose Books","Cash Book","Ledger","Bank Reconciliation Statement (BRS)","Depreciation","Provisions and Reserves","Trial Balance and Rectification of Errors","Financial Statements of Sole Proprietorship","Trading and Profit & Loss Account","Balance Sheet","Adjustments","Incomplete Records"],
+ "Business Studies":["Business, Trade and Commerce","Forms of Business Organisation","Private, Public and Global Enterprises","Business Services","Emerging Modes of Business","Social Responsibilities of Business and Business Ethics","Formation of a Company","Sources of Business Finance","MSME and Business Entrepreneurship","Internal Trade","International Business"],
+ "Economics":["Economics: An Introduction","Meaning, Scope and Importance of Statistics","Collection of Data","Organisation of Data","Textual and Tabular Presentation","Diagrammatic Presentation","Graphic Presentation","Measures of Central Tendency — Arithmetic Mean","Measures of Central Tendency — Median and Mode","Measures of Correlation","Index Numbers","Microeconomics: Introduction","Consumer's Equilibrium","Demand","Elasticity of Demand","Production Function","Cost","Revenue","Producer's Equilibrium","Supply","Main Market Forms","Price Determination and Simple Applications"],
+ "Applied Mathematics":["Numbers","Indices and Logarithms","Quantitative Aptitude","Mensuration","Sets and Relations","Sequences and Series","Permutations and Combinations","Logical Reasoning","Functions","Limits and Continuity","Differentiation","Probability","Descriptive Statistics","Compound Interest and Annuity","Taxation","Utility Bills","Straight Line","Circle and Parabola"],
+ "English":["The Portrait of a Lady","We're Not Afraid to Die... if We Can All Be Together","Discovering Tut: The Saga Continues","The Ailing Planet: The Green Movement's Role","The Adventure","Silk Road","A Photograph","The Laburnum Top","The Voice of the Rain","Childhood","Father to Son","The Summer of the Beautiful White House","The Address","Mother's Day","Birth","The Tale of Melon City","Note-making","Summarising","Sub-titling","Essay-writing","Letter-writing","Creative Writing"]
+};
+const caTopics={
+ "Accounting":["Accounting fundamentals","Journal and ledger","Trial balance and rectification","Depreciation and inventory","Financial statements","Company accounts"],
+ "Business Laws":["Indian Regulatory Framework","Indian Contract Act, 1872","Sale of Goods Act, 1930","Partnership Act, 1932","Limited Liability Partnership Act, 2008","Companies Act, 2013"],
+ "Quantitative Aptitude":["Business Mathematics","Logical Reasoning","Statistics"],
+ "Business Economics":["Introduction to Business Economics","Theory of Demand and Supply","Theory of Production and Cost","Price Determination in Different Markets","Business Cycles"]
+};
+const stages=["Class 11","Class 12","CA Foundation","CA Intermediate","Articleship","CA Final","Future Qualifications"];
+function fresh(){return {subjects:Object.fromEntries(Object.entries(starter).map(([s,topics])=>[s,topics.map(name=>({name,done:false}))])),tasks:[],stages:stages.map((name,i)=>({name,status:i===0?"Active":"Planned"})),customTopics:{}}}
+let data;
+try{data=JSON.parse(localStorage.getItem("studyos_v1"))||fresh()}catch{data=fresh()}
+function save(){try{localStorage.setItem("studyos_v1",JSON.stringify(data))}catch(e){alert("Browser storage is full or unavailable. Export a backup and try again.")}render()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function allTopics(){return Object.values(data.subjects).flat()}
+function completed(){return allTopics().filter(t=>t.done).length}
+function pct(items){return items.length?Math.round(items.filter(t=>t.done).length/items.length*100):0}
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("hidden",p.id!==id));document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));closeTopics();window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function openTopics(subject){document.getElementById("topicPanel").classList.remove("hidden");document.getElementById("topicTitle").textContent=subject;renderTopics(subject);document.getElementById("topicPanel").scrollIntoView({behavior:"smooth",block:"start"})}
+function closeTopics(){document.getElementById("topicPanel")?.classList.add("hidden")}
+function renderTopics(subject){let topics=data.subjects[subject]||[];document.getElementById("subjectBar").style.width=pct(topics)+"%";document.getElementById("topicList").innerHTML=topics.map((t,i)=>`<div class="row"><label><input type="checkbox" ${t.done?"checked":""} onchange="toggleTopic('${esc(subject)}',${i},this.checked)"><span>${esc(t.name)}</span></label><span class="pill">${t.done?"Done":"To do"}</span></div>`).join("")||'<p class="empty">No topics yet. Add one below.</p>'}
+function toggleTopic(subject,i,v){data.subjects[subject][i].done=v;save();renderTopics(subject)}
+document.getElementById("topicForm").addEventListener("submit",e=>{e.preventDefault();let s=document.getElementById("topicTitle").textContent,n=document.getElementById("newTopic").value.trim();if(!n)return;data.subjects[s].push({name:n,done:false});document.getElementById("newTopic").value="";save();renderTopics(s)})
+function subjectCard(s,compact=false){let ts=data.subjects[s]||[];return `<div class="subject" onclick="openTopics('${esc(s)}')"><div class="subject-top"><h3>${esc(s)}</h3><span class="pill">${pct(ts)}%</span></div><div class="muted small">${ts.filter(t=>t.done).length} of ${ts.length} topics complete</div><div class="bar"><span style="width:${pct(ts)}%"></span></div><div class="hint">Open workspace →</div></div>`}
+function renderSubjects(){document.getElementById("subjectCards").innerHTML=Object.keys(data.subjects).map(s=>subjectCard(s)).join("");document.getElementById("dashboardSubjects").innerHTML=Object.keys(data.subjects).map(s=>subjectCard(s,true)).join("")}
+document.getElementById("taskForm").addEventListener("submit",e=>{e.preventDefault();data.tasks.push({id:Date.now(),name:document.getElementById("taskName").value.trim(),subject:document.getElementById("taskSubject").value,date:document.getElementById("taskDate").value,done:false});e.target.reset();save()})
+function renderTasks(){let ts=[...data.tasks].sort((a,b)=>Number(a.done)-Number(b.done));document.getElementById("taskList").innerHTML=ts.length?ts.map(t=>`<div class="row"><label><input type="checkbox" ${t.done?"checked":""} onchange="toggleTask(${t.id},this.checked)"><span><span style="${t.done?"text-decoration:line-through;color:var(--muted)":""}">${esc(t.name)}</span><div class="hint">${esc(t.subject)}${t.date?" • Due "+esc(t.date):""}</div></span></label><button aria-label="Delete task" onclick="deleteTask(${t.id})">×</button></div>`).join(""):'<div class="empty">No tasks yet. Add your first task above.</div>';document.getElementById("todayList").innerHTML=ts.filter(t=>!t.done).slice(0,3).map(t=>`<div class="row"><span>${esc(t.name)}<div class="hint">${esc(t.subject)}${t.date?" • "+esc(t.date):""}</div></span><button onclick="toggleTask(${t.id},true)">Done ✓</button></div>`).join("")||'<p class="muted">Nothing pending. Add one small task to get started.</p>'}
+function toggleTask(id,v){let t=data.tasks.find(t=>t.id===id);if(t)t.done=v;save()}
+function deleteTask(id){data.tasks=data.tasks.filter(t=>t.id!==id);save()}
+function renderStages(){document.getElementById("stageCards").innerHTML=data.stages.map((s,i)=>`<div class="panel"><div class="eyebrow">STAGE ${String(i+1).padStart(2,"0")}</div><h3>${esc(s.name)}</h3><select aria-label="Stage status" onchange="data.stages[${i}].status=this.value;save()">${["Planned","Active","Completed","Archived"].map(x=>`<option ${s.status===x?"selected":""}>${x}</option>`).join("")}</select><p class="hint" style="margin-top:10px">Customizable roadmap stage</p></div>`).join("");document.getElementById("stageSettings").innerHTML=data.stages.map((s,i)=>`<div class="row"><span>${esc(s.name)} <span class="pill">${esc(s.status)}</span></span><button onclick="renameStage(${i})">Rename</button><button onclick="removeStage(${i})">×</button></div>`).join("");document.getElementById("caSubjects").innerHTML=Object.entries(caTopics).map(([s,topics])=>`<div class="row"><div><strong>${esc(s)}</strong><div class="hint">${topics.map(esc).join(" • ")}</div></div></div>`).join("")}
+document.getElementById("stageForm").addEventListener("submit",e=>{e.preventDefault();let name=document.getElementById("stageName").value.trim();if(name){data.stages.push({name,status:"Planned"});e.target.reset();save()}})
+function renameStage(i){let n=prompt("Rename this stage:",data.stages[i].name);if(n&&n.trim())data.stages[i].name=n.trim();save()}
+function removeStage(i){if(confirm("Remove this stage from your roadmap?")){data.stages.splice(i,1);save()}}
+function render(){let ts=allTopics(),done=completed();document.getElementById("statDone").textContent=done;document.getElementById("statTopics").textContent="Out of "+ts.length+" topics";document.getElementById("statTasks").textContent=data.tasks.filter(t=>!t.done).length;document.getElementById("statPercent").textContent=pct(ts)+"%";document.getElementById("overallBar").style.width=pct(ts)+"%";renderSubjects();renderTasks();renderStages()}
+function exportData(){let blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),data},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="StudyOS-backup.json";a.click();URL.revokeObjectURL(url)}
+function importData(e){let file=e.target.files[0];if(!file)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result),d=x.data||x;if(!d.subjects||!d.tasks||!d.stages)throw Error("Invalid backup");if(confirm("Replace the current StudyOS data with this backup?")){data=d;save();alert("Backup restored.")}}catch(err){alert("Could not restore: this file is not a valid StudyOS backup.")}e.target.value=""};r.readAsText(file)}
+function resetData(){if(confirm("Delete all StudyOS data from this browser? Export a backup first. This cannot be undone.")){data=fresh();save();showPage("dashboard")}}
+render();
+</script>
+</body>
+</html>
