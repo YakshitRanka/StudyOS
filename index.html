@@ -3,117 +3,389 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07111f">
-<title>StudyOS | Personal Learning System</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111b">
+<title>StudyOS — Your Learning System</title>
 <style>
-:root{color-scheme:dark;--bg:#07111f;--panel:#101e30;--line:#263950;--cyan:#55e6ff;--muted:#a1b2c8;--white:#eef7ff;--green:#79f2bd}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% 0%,#12304a 0,transparent 45%),var(--bg);color:var(--white);font:15px system-ui,-apple-system,sans-serif}button,input,select{font:inherit}button{cursor:pointer;color:var(--white);background:#19334a;border:1px solid #34516a;border-radius:10px;padding:10px 13px}button:hover{border-color:var(--cyan)}input,select{width:100%;background:#091626;color:var(--white);border:1px solid var(--line);border-radius:9px;padding:11px}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(25px,5vw,38px);margin-bottom:6px}h2{font-size:21px}h3{font-size:16px}.muted,.hint{color:var(--muted)}.hint{font-size:12px}.app{max-width:1250px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:10px 0 20px}.logo{color:var(--cyan);font-weight:800;letter-spacing:2px}.top-actions,.tabs,.actions{display:flex;gap:8px;flex-wrap:wrap}.tabs{margin:18px 0;overflow:auto}.tabs button.active{background:var(--cyan);color:#04121c;border-color:var(--cyan);font-weight:750}.hero{padding:25px;border:1px solid #2c5369;border-radius:20px;background:linear-gradient(120deg,#10283a,#0b1928);margin-bottom:18px}.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:2px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.panel,.subject{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}.stat{font-size:30px;font-weight:800;color:var(--cyan);margin:6px 0}.bar{height:7px;background:#24364a;border-radius:20px;overflow:hidden;margin:12px 0}.bar span{display:block;height:100%;background:linear-gradient(90deg,#36bdf3,var(--green));width:0}.section{margin:22px 0}.subject-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.subject{cursor:pointer}.subject:hover{border-color:var(--cyan)}.subject-top{display:flex;justify-content:space-between;gap:8px}.pill{font-size:11px;border:1px solid #34516a;border-radius:20px;padding:4px 8px;color:var(--cyan);white-space:nowrap}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.row label{display:flex;align-items:flex-start;gap:10px;flex:1}.row input[type=checkbox]{width:19px;min-width:19px;margin-top:2px;accent-color:var(--cyan)}.form{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.form input,.form select{flex:1;min-width:140px}.wide{grid-column:1/-1}.hidden{display:none!important}.empty{padding:25px;text-align:center;color:var(--muted)}.danger{border-color:#844954}.small{font-size:12px}.footer{border-top:1px solid var(--line);margin-top:30px;padding:18px 0;color:var(--muted);font-size:12px}
-@media(max-width:720px){.app{padding:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.subject-list{grid-template-columns:1fr}.hero{padding:19px}.panel{padding:14px}.top-actions button{padding:9px}.tabs{flex-wrap:nowrap}.tabs button{white-space:nowrap}}
-@media(max-width:390px){.grid{grid-template-columns:1fr}}
+:root{--bg:#07111b;--panel:#0d1b2a;--panel2:#122438;--line:#294056;--text:#edf7ff;--muted:#98aec1;--cyan:#59e1ff;--green:#7ce7b0;--amber:#ffd27d;--red:#ff8796}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#17425b,transparent 40%),var(--bg);color:var(--text);font:15px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer;background:#173047;color:var(--text);border:1px solid #35516a;border-radius:10px;padding:10px 12px}button:hover{border-color:var(--cyan)}input,textarea,select{width:100%;background:#071521;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:11px}textarea{min-height:100px;resize:vertical}label{display:block;color:var(--muted);font-size:12px;margin:0 0 5px}
+h1{font-size:clamp(27px,5vw,38px);margin:7px 0}h2{font-size:21px;margin:0 0 12px}h3{font-size:16px;margin:0 0 8px}.muted,.tiny{color:var(--muted)}.tiny{font-size:12px}.app{max-width:1450px;margin:auto;padding:16px}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);gap:16px}.sidebar{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;align-self:start;position:sticky;top:10px;max-height:calc(100vh - 20px);overflow:auto}.brand{font-size:20px;letter-spacing:3px;font-weight:900;color:var(--cyan);margin:6px 4px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--cyan);font-weight:800}.navgroup{margin:18px 0 7px;color:var(--muted);font-size:10px;letter-spacing:1.6px}.navbtn{display:flex;width:100%;align-items:center;gap:9px;text-align:left;margin:4px 0;background:transparent;border-color:transparent;padding:10px}.navbtn.active{background:#15374b;border-color:#27526b;color:var(--cyan)}.navbtn .grow{flex:1}.navbtn small{color:var(--muted)}.sideactions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}.main{min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:5px 0 15px;border-bottom:1px solid var(--line);margin-bottom:16px}.actions,.inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.hero,.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}.hero{padding:25px;background:linear-gradient(120deg,#102d41,#0b1927);margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.section{margin:16px 0}.stat{font-size:30px;font-weight:850;color:var(--cyan);margin:8px 0}.bar{height:7px;background:#24384b;border-radius:20px;overflow:hidden;margin:10px 0}.bar span{display:block;height:100%;background:linear-gradient(90deg,#35bfe9,var(--green));width:0}.subjectgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{cursor:pointer}.card:hover{border-color:var(--cyan)}.between{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.pill{display:inline-block;border:1px solid #35536b;color:var(--cyan);padding:4px 8px;border-radius:20px;font-size:11px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{min-width:0}.full{grid-column:1/-1}.formactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.listrow{display:flex;align-items:flex-start;gap:9px;padding:12px 0;border-bottom:1px solid var(--line)}.listrow:last-child{border-bottom:0}.listrow .grow{flex:1;min-width:0;overflow-wrap:anywhere}.listrow select{width:auto;max-width:150px;padding:7px}.listrow input[type=checkbox]{width:18px;min-width:18px;margin-top:4px;accent-color:var(--cyan)}.primary{background:var(--cyan);color:#04121a;font-weight:800}.danger{border-color:#874754}.notice{padding:12px;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:13px;line-height:1.6}.empty{text-align:center;padding:24px;color:var(--muted)}.hidden{display:none!important}.tabs{display:flex;gap:7px;overflow:auto;margin:14px 0}.tabs button{white-space:nowrap}.tabs button.active{border-color:var(--cyan);color:var(--cyan)}.topicrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;padding:12px 0;border-bottom:1px solid var(--line)}.topicmeta{font-size:12px;color:var(--muted);margin-top:4px}.footer{border-top:1px solid var(--line);padding:18px 0;margin-top:25px;color:var(--muted);font-size:12px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.sidebar nav{display:flex;gap:6px;overflow-x:auto}.navgroup{display:none}.navbtn{width:auto;min-width:max-content;margin:0}.sideactions{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}}
+@media(max-width:520px){.app{padding:10px}.hero,.panel,.card{padding:14px}.subjectgrid,.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stat{font-size:25px}.topicrow{grid-template-columns:1fr}.topicrow select{width:100%}.listrow{flex-wrap:wrap}.listrow .grow{flex-basis:65%}.topbar{align-items:flex-start}}
 </style>
 </head>
 <body>
 <div class="app">
-<header class="top">
-  <div><div class="logo">◈ STUDYOS</div><div class="hint">YOUR PERSONAL LEARNING SYSTEM</div></div>
-  <div class="top-actions">
-    <button onclick="exportData()">↧ Backup</button>
-    <button onclick="document.getElementById('restore').click()">↥ Restore</button>
-    <input id="restore" type="file" accept=".json,application/json" hidden onchange="importData(event)">
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand">◈ STUDYOS</div>
+  <div class="tiny" style="margin:0 4px 18px">YOUR PERSONAL LEARNING SYSTEM</div>
+  <nav id="mainNav"></nav>
+  <div class="navgroup">YOUR STAGES</div>
+  <nav id="stageNav"></nav>
+  <div class="sideactions">
+    <button onclick="addStage()">＋ Stage</button>
+    <button onclick="manageStages()">Manage</button>
+    <button onclick="backup()">↓ Backup</button>
   </div>
+  <p class="tiny">Your study data stays in this browser. Back it up regularly.</p>
+</aside>
+<div class="main">
+<header class="topbar">
+  <div><div class="eyebrow">PERSONAL COMMAND CENTRE</div><div class="muted" id="saveInfo">Local storage enabled</div></div>
+  <div class="actions"><button onclick="$('restoreFile').click()">↑ Restore backup</button><button onclick="page('settings')">⚙ Settings</button><input id="restoreFile" type="file" accept=".json,application/json" hidden onchange="restoreBackup(event)"></div>
 </header>
-<nav class="tabs" id="tabs">
-  <button class="active" data-page="dashboard">⌂ Dashboard</button>
-  <button data-page="subjects">▤ Class 11</button>
-  <button data-page="tasks">✓ Tasks</button>
-  <button data-page="ca">◎ CA Journey</button>
-  <button data-page="settings">⚙ Settings</button>
-</nav>
+
 <main>
-<section id="dashboard" class="page">
-  <div class="hero">
-    <div class="eyebrow">PERSONAL COMMAND CENTRE / 01</div>
-    <h1>Build your future.<br><span style="color:var(--cyan)">One session at a time.</span></h1>
-    <p class="muted">Class 11 Commerce → CA → Beyond. Your progress, your pace.</p>
-    <div class="actions"><button onclick="showPage('subjects')">Open my subjects ↗</button><button onclick="showPage('tasks')">View tasks</button></div>
-  </div>
+<section id="home" class="page">
+  <div class="hero"><div class="eyebrow">YOUR JOURNEY / YOUR RULES</div><h1>Study smarter.<br><span style="color:var(--cyan)">Build your future.</span></h1><p class="muted">From Class 11 to CA and beyond. You control the stages, subjects, syllabus and workflow.</p><div class="actions"><button class="primary" onclick="page('planner')">Plan my day →</button><button onclick="addStage()">＋ Add a class or stage</button></div></div>
   <div class="grid">
-    <div class="panel"><div class="muted">Topics completed</div><div class="stat" id="statDone">0</div><div class="hint" id="statTopics">Across your subjects</div></div>
-    <div class="panel"><div class="muted">Tasks remaining</div><div class="stat" id="statTasks">0</div><div class="hint">Your next steps</div></div>
-    <div class="panel"><div class="muted">Overall topic progress</div><div class="stat" id="statPercent">0%</div><div class="bar"><span id="overallBar"></span></div></div>
+    <div class="panel"><div class="muted">Topics mastered</div><div class="stat" id="statMastered">0</div><div class="tiny" id="statTopicTotal">of 0 topics</div></div>
+    <div class="panel"><div class="muted">Pending tasks</div><div class="stat" id="statTasks">0</div><div class="tiny">Across your journey</div></div>
+    <div class="panel"><div class="muted">Overall progress</div><div class="stat" id="statProgress">0%</div><div class="bar"><span id="statBar"></span></div></div>
   </div>
-  <div class="section panel"><h2>Today's focus</h2><p class="muted">Choose a small, achievable next step.</p><div id="todayList"></div><button onclick="showPage('tasks')">Manage tasks →</button></div>
-  <div class="section"><h2>Your subjects</h2><div class="subject-list" id="dashboardSubjects"></div></div>
+  <div class="two section"><div class="panel"><h2>Upcoming tasks</h2><div id="homeTasks"></div><button onclick="page('planner')">Open planner →</button></div><div class="panel"><h2>Revision due</h2><div id="homeRevision"></div><button onclick="page('revision')">Open revision →</button></div></div>
+  <div class="panel section"><h2>Stage overview</h2><div id="homeStages" class="subjectgrid"></div></div>
 </section>
-<section id="subjects" class="page hidden">
-  <div class="section"><div class="eyebrow">CURRENT ACADEMIC STAGE</div><h1>Class 11 workspace</h1><p class="muted">Open a subject, track topics and build consistency.</p></div>
-  <div class="subject-list" id="subjectCards"></div>
-  <div class="panel section hidden" id="topicPanel"><div class="actions" style="justify-content:space-between"><div><div class="eyebrow">SUBJECT WORKSPACE</div><h2 id="topicTitle"></h2></div><button onclick="closeTopics()">← Back</button></div><div class="bar"><span id="subjectBar"></span></div><div id="topicList"></div><h3 style="margin-top:20px">Add a topic</h3><form class="form" id="topicForm"><input id="newTopic" placeholder="Topic name" required><button>Add topic</button></form></div>
+
+<section id="stagePage" class="page hidden">
+  <div class="between"><div><div class="eyebrow">STAGE WORKSPACE</div><h1 id="stageTitle">Stage</h1><p class="muted" id="stageMeta"></p></div><button onclick="editStage(currentStageId)">✎ Edit stage</button></div>
+  <div class="grid section"><div class="panel"><div class="muted">Topics mastered</div><div class="stat" id="stageMastered">0</div></div><div class="panel"><div class="muted">Subjects</div><div class="stat" id="stageSubjectCount">0</div></div><div class="panel"><div class="muted">Progress</div><div class="stat" id="stageProgress">0%</div><div class="bar"><span id="stageBar"></span></div></div></div>
+  <div class="panel"><h2>Stage notes and goals</h2><textarea id="stageNotes" placeholder="Goals, deadlines, syllabus changes, reminders..."></textarea><button class="primary" style="margin-top:8px" onclick="saveStageNotes()">Save notes</button></div>
+  <div class="panel section"><div class="between"><div><h2>Subjects</h2><p class="tiny">Each subject has topics, statuses, notes and resources.</p></div><button class="primary" onclick="addSubject()">＋ Add subject</button></div><div id="stageSubjects" class="subjectgrid"></div></div>
+  <div class="panel section"><h2>Import a syllabus</h2><p class="tiny">Paste chapter names, one per line. Select a subject above or create a new one first.</p><form id="syllabusForm" class="formgrid"><div class="field"><label>Subject</label><select id="syllabusSubject"></select></div><div class="field"><label>Import mode</label><select id="syllabusMode"><option value="append">Add to existing topics</option><option value="replace">Replace topic list</option></select></div><div class="field full"><label>Topics — one per line</label><textarea id="syllabusText" required placeholder="Chapter 1&#10;Chapter 2&#10;Chapter 3"></textarea></div><div class="formactions full"><button class="primary">Import topics</button></div></form></div>
 </section>
-<section id="tasks" class="page hidden">
-  <div class="section"><div class="eyebrow">PLAN / EXECUTE / REVIEW</div><h1>My tasks</h1><p class="muted">Keep your next actions visible and manageable.</p></div>
-  <div class="panel"><form id="taskForm" class="form"><input id="taskName" placeholder="What do you need to do?" required><select id="taskSubject"><option>General</option><option>Accountancy</option><option>Business Studies</option><option>Economics</option><option>Applied Mathematics</option><option>English</option><option>CA Foundation</option></select><input id="taskDate" type="date" aria-label="Due date"><button>Add task</button></form><div id="taskList"></div></div>
+
+<section id="subjectPage" class="page hidden">
+  <button onclick="openStage(currentStageId)">← Back to stage</button>
+  <div class="section"><div class="eyebrow">SUBJECT WORKSPACE</div><h1 id="subjectTitle">Subject</h1><p class="muted" id="subjectSummary"></p></div>
+  <div class="grid"><div class="panel"><div class="muted">Mastered</div><div class="stat" id="subjectMastered">0</div></div><div class="panel"><div class="muted">Topics</div><div class="stat" id="subjectTotal">0</div></div><div class="panel"><div class="muted">Progress</div><div class="stat" id="subjectProgress">0%</div><div class="bar"><span id="subjectBar"></span></div></div></div>
+  <div class="tabs" id="subjectTabs"><button data-tab="topics" class="active">Topics</button><button data-tab="notes">Notes</button><button data-tab="resources">Resources</button></div>
+  <div id="subjectTopics" class="panel subjectTab"></div>
+  <div id="subjectNotesPanel" class="panel subjectTab hidden"><h2>Subject notes</h2><textarea id="subjectNotes" placeholder="Your notes, formulas, exam tips..."></textarea><button class="primary" style="margin-top:8px" onclick="saveSubjectNotes()">Save notes</button></div>
+  <div id="subjectResourcesPanel" class="panel subjectTab hidden"><h2>Subject resource</h2><label>General resource URL</label><input id="subjectResource" placeholder="https://..."><button style="margin-top:8px" onclick="saveSubjectResource()">Save resource</button><div id="topicResources" class="section"></div></div>
 </section>
-<section id="ca" class="page hidden">
-  <div class="section"><div class="eyebrow">LONG-TERM MISSION</div><h1>CA Journey</h1><p class="muted">A roadmap you can update as your goals and official syllabuses change.</p></div>
-  <div class="grid" id="stageCards"></div>
-  <div class="panel section"><h2>CA Foundation starter workspace</h2><p class="muted">Use these as planning categories, then check the official ICAI syllabus for your attempt.</p><div id="caSubjects"></div></div>
+
+<section id="planner" class="page hidden">
+  <div class="section"><div class="eyebrow">PLAN / DO / COMPLETE</div><h1>Planner</h1></div>
+  <div class="panel"><h2>Add a task</h2><form id="taskForm" class="formgrid">
+    <div class="field full"><label>Task</label><input id="taskName" required placeholder="Practise 20 journal entries"></div>
+    <div class="field"><label>Stage / subject</label><select id="taskSubject"></select></div>
+    <div class="field"><label>Due date</label><input id="taskDate" type="date"></div>
+    <div class="field"><label>Priority</label><select id="taskPriority"><option>Medium</option><option>High</option><option>Low</option></select></div>
+    <div class="field"><label>Estimated minutes</label><input id="taskMinutes" type="number" min="5" value="30"></div>
+    <div class="formactions full"><button class="primary">＋ Add task</button></div>
+  </form></div>
+  <div class="panel section"><div class="between"><h2>My tasks</h2><select id="taskFilter" style="width:auto" onchange="renderTasks()"><option value="all">All tasks</option><option value="open">Pending</option><option value="done">Completed</option><option value="overdue">Overdue</option></select></div><div id="taskList"></div></div>
 </section>
+
+<section id="revision" class="page hidden">
+  <div class="section"><div class="eyebrow">ACTIVE RECALL</div><h1>Revision room</h1><p class="muted">Set revision dates on topics to build your own review queue.</p></div>
+  <div class="grid"><div class="panel"><div class="muted">Due / overdue</div><div class="stat" id="revDueCount">0</div></div><div class="panel"><div class="muted">Weak topics</div><div class="stat" id="revWeakCount">0</div></div><div class="panel"><div class="muted">Revised / mastered</div><div class="stat" id="revDoneCount">0</div></div></div>
+  <div class="panel section"><h2>Revision queue</h2><div id="revisionList"></div></div>
+  <div class="panel section"><h2>Mistake notebook</h2><form id="mistakeForm" class="formgrid"><div class="field"><label>Stage / subject</label><select id="mistakeSubject"></select></div><div class="field"><label>Question or topic</label><input id="mistakeTopic" required></div><div class="field full"><label>Mistake and correction</label><textarea id="mistakeText" required placeholder="What went wrong? What is the correct method?"></textarea></div><div class="formactions full"><button class="primary">Save mistake</button></div></form><div id="mistakeList"></div></div>
+</section>
+
+<section id="tests" class="page hidden">
+  <div class="section"><div class="eyebrow">MEASURE / IMPROVE</div><h1>Tests & analytics</h1></div>
+  <div class="panel"><h2>Record a test</h2><form id="testForm" class="formgrid"><div class="field"><label>Test name</label><input id="testName" required></div><div class="field"><label>Stage / subject</label><select id="testSubject"></select></div><div class="field"><label>Marks obtained</label><input id="testScore" type="number" min="0" step="any" required></div><div class="field"><label>Total marks</label><input id="testTotal" type="number" min="1" step="any" required></div><div class="field"><label>Date</label><input id="testDate" type="date"></div><div class="field"><label>What to improve?</label><input id="testImprove"></div><div class="formactions full"><button class="primary">＋ Save test</button></div></form></div>
+  <div class="grid section"><div class="panel"><div class="muted">Tests recorded</div><div class="stat" id="testCount">0</div></div><div class="panel"><div class="muted">Average score</div><div class="stat" id="testAverage">—</div></div><div class="panel"><div class="muted">Best score</div><div class="stat" id="testBest">—</div></div></div>
+  <div class="panel section"><h2>Score history</h2><div id="testList"></div></div>
+  <div class="panel section"><h2>Progress by stage</h2><div id="analytics"></div></div>
+</section>
+
 <section id="settings" class="page hidden">
-  <div class="section"><div class="eyebrow">YOUR DATA / YOUR RULES</div><h1>Settings & backups</h1></div>
-  <div class="panel"><h2>Data safety</h2><p class="muted">Your data is saved in this browser on this device. It does not automatically sync across devices. Clearing browser data can erase it, so export backups regularly.</p><div class="actions"><button onclick="exportData()">Download JSON backup</button><button onclick="document.getElementById('restore').click()">Restore JSON backup</button></div></div>
-  <div class="panel section"><h2>Academic stages</h2><div id="stageSettings"></div><form class="form" id="stageForm"><input id="stageName" placeholder="Add a stage, e.g. New qualification" required><button>Add stage</button></form></div>
-  <div class="panel section"><h2>Reset workspace</h2><p class="muted">This deletes saved StudyOS data from this browser. Download a backup first.</p><button class="danger" onclick="resetData()">Reset all local data</button></div>
+  <div class="section"><div class="eyebrow">YOUR DATA / YOUR RULES</div><h1>Settings</h1></div>
+  <div class="panel"><h2>Backup and restore</h2><p class="notice">Your data is saved in this browser on this device. It does not automatically sync between devices. Browser cleanup can erase it. Export JSON backups regularly and keep them somewhere safe.</p><div class="actions" style="margin-top:10px"><button class="primary" onclick="backup()">Download JSON backup</button><button onclick="$('restoreFile').click()">Restore backup</button></div></div>
+  <div class="panel section"><h2>Manage stages</h2><p class="tiny">Rename, reorder, archive, restore or delete a stage.</p><div id="manageStageList"></div><button class="primary" onclick="addStage()">＋ Add stage</button></div>
+  <div class="panel section"><h2>Customise statuses</h2><p class="tiny">Choose your topic statuses. Existing topics keep their saved status; changing the list does not automatically rewrite existing topics.</p><textarea id="statusEditor" placeholder="One status per line"></textarea><button onclick="saveStatuses()" style="margin-top:8px">Save status list</button><div class="tiny" style="margin-top:8px">Use exactly one status per line. Keep at least one status.</div></div>
+  <div class="panel section"><h2>Data tools</h2><div class="actions"><button onclick="backup()">Export all data</button><button onclick="$('restoreFile').click()">Import data</button><button class="danger" onclick="resetData()">Reset all data</button></div><p class="tiny">Keep backups private. Do not upload your personal JSON backup to your public GitHub repository.</p></div>
 </section>
 </main>
-<footer class="footer">STUDYOS • Personal learning, built step by step • v1.0 • Local-first</footer>
+<footer class="footer">STUDYOS · Customisable learning workspace · Local-first</footer>
+</div></div>
 </div>
 <script>
-const starter = {
- "Accountancy":["Theoretical Framework","Vouchers","Accounting Equation","Journal","Special-Purpose Books","Cash Book","Ledger","Bank Reconciliation Statement (BRS)","Depreciation","Provisions and Reserves","Trial Balance and Rectification of Errors","Financial Statements of Sole Proprietorship","Trading and Profit & Loss Account","Balance Sheet","Adjustments","Incomplete Records"],
- "Business Studies":["Business, Trade and Commerce","Forms of Business Organisation","Private, Public and Global Enterprises","Business Services","Emerging Modes of Business","Social Responsibilities of Business and Business Ethics","Formation of a Company","Sources of Business Finance","MSME and Business Entrepreneurship","Internal Trade","International Business"],
- "Economics":["Economics: An Introduction","Meaning, Scope and Importance of Statistics","Collection of Data","Organisation of Data","Textual and Tabular Presentation","Diagrammatic Presentation","Graphic Presentation","Measures of Central Tendency — Arithmetic Mean","Measures of Central Tendency — Median and Mode","Measures of Correlation","Index Numbers","Microeconomics: Introduction","Consumer's Equilibrium","Demand","Elasticity of Demand","Production Function","Cost","Revenue","Producer's Equilibrium","Supply","Main Market Forms","Price Determination and Simple Applications"],
- "Applied Mathematics":["Numbers","Indices and Logarithms","Quantitative Aptitude","Mensuration","Sets and Relations","Sequences and Series","Permutations and Combinations","Logical Reasoning","Functions","Limits and Continuity","Differentiation","Probability","Descriptive Statistics","Compound Interest and Annuity","Taxation","Utility Bills","Straight Line","Circle and Parabola"],
- "English":["The Portrait of a Lady","We're Not Afraid to Die... if We Can All Be Together","Discovering Tut: The Saga Continues","The Ailing Planet: The Green Movement's Role","The Adventure","Silk Road","A Photograph","The Laburnum Top","The Voice of the Rain","Childhood","Father to Son","The Summer of the Beautiful White House","The Address","Mother's Day","Birth","The Tale of Melon City","Note-making","Summarising","Sub-titling","Essay-writing","Letter-writing","Creative Writing"]
+const $=id=>document.getElementById(id);
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const today=()=>{let d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const defaultStatuses=["Not started","Learning","Practising","Revised","Mastered"];
+const syllabus={
+"Accountancy":["Theoretical Framework","Vouchers","Accounting Equation","Journal","Special-Purpose Books","Cash Book","Ledger","Bank Reconciliation Statement (BRS)","Depreciation","Provisions and Reserves","Trial Balance and Rectification of Errors","Financial Statements of Sole Proprietorship","Trading and Profit & Loss Account","Balance Sheet","Adjustments","Incomplete Records"],
+"Business Studies":["Business, Trade and Commerce","Forms of Business Organisation","Private, Public and Global Enterprises","Business Services","Emerging Modes of Business","Social Responsibilities of Business and Business Ethics","Formation of a Company","Sources of Business Finance","MSME and Business Entrepreneurship","Internal Trade","International Business"],
+"Economics":["Economics: An Introduction","Meaning, Scope and Importance of Statistics","Collection of Data","Organisation of Data","Textual and Tabular Presentation","Diagrammatic Presentation","Graphic Presentation","Measures of Central Tendency — Arithmetic Mean","Measures of Central Tendency — Median and Mode","Measures of Correlation","Index Numbers","Introduction","Consumer's Equilibrium","Demand","Elasticity of Demand","Production Function","Cost","Revenue","Producer's Equilibrium","Supply","Main Market Forms","Price Determination and Simple Applications"],
+"Applied Mathematics":["Numbers","Indices and Logarithms","Quantitative Aptitude","Mensuration","Sets and Relations","Sequences and Series","Permutations and Combinations","Logical Reasoning","Functions","Limits and Continuity","Differentiation","Probability","Descriptive Statistics","Compound Interest and Annuity","Taxation","Utility Bills","Straight Line","Circle and Parabola"],
+"English":["The Portrait of a Lady","We're Not Afraid to Die... if We Can All Be Together","Discovering Tut: The Saga Continues","The Ailing Planet: The Green Movement's Role","The Adventure","Silk Road","A Photograph","The Laburnum Top","The Voice of the Rain","Childhood","Father to Son","The Summer of the Beautiful White House","The Address","Mother's Day","Birth","The Tale of Melon City","Note-making","Summarising","Sub-titling","Essay-writing","Letter-writing","Creative Writing"]
 };
-const caTopics={
- "Accounting":["Accounting fundamentals","Journal and ledger","Trial balance and rectification","Depreciation and inventory","Financial statements","Company accounts"],
- "Business Laws":["Indian Regulatory Framework","Indian Contract Act, 1872","Sale of Goods Act, 1930","Partnership Act, 1932","Limited Liability Partnership Act, 2008","Companies Act, 2013"],
- "Quantitative Aptitude":["Business Mathematics","Logical Reasoning","Statistics"],
- "Business Economics":["Introduction to Business Economics","Theory of Demand and Supply","Theory of Production and Cost","Price Determination in Different Markets","Business Cycles"]
+const foundation={
+"Accounting":["Accounting fundamentals","Journal and ledger","Trial balance and rectification","Depreciation and inventory","Financial statements","Company accounts"],
+"Business Laws":["Indian Regulatory Framework","Indian Contract Act, 1872","Sale of Goods Act, 1930","Partnership Act, 1932","Limited Liability Partnership Act, 2008","Companies Act, 2013"],
+"Quantitative Aptitude":["Business Mathematics","Logical Reasoning","Statistics"],
+"Business Economics":["Introduction to Business Economics","Theory of Demand and Supply","Theory of Production and Cost","Price Determination in Different Markets","Business Cycles"]
 };
-const stages=["Class 11","Class 12","CA Foundation","CA Intermediate","Articleship","CA Final","Future Qualifications"];
-function fresh(){return {subjects:Object.fromEntries(Object.entries(starter).map(([s,topics])=>[s,topics.map(name=>({name,done:false}))])),tasks:[],stages:stages.map((name,i)=>({name,status:i===0?"Active":"Planned"})),customTopics:{}}}
-let data;
-try{data=JSON.parse(localStorage.getItem("studyos_v1"))||fresh()}catch{data=fresh()}
-function save(){try{localStorage.setItem("studyos_v1",JSON.stringify(data))}catch(e){alert("Browser storage is full or unavailable. Export a backup and try again.")}render()}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function allTopics(){return Object.values(data.subjects).flat()}
-function completed(){return allTopics().filter(t=>t.done).length}
-function pct(items){return items.length?Math.round(items.filter(t=>t.done).length/items.length*100):0}
-function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("hidden",p.id!==id));document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));closeTopics();window.scrollTo({top:0,behavior:"smooth"})}
-document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
-function openTopics(subject){document.getElementById("topicPanel").classList.remove("hidden");document.getElementById("topicTitle").textContent=subject;renderTopics(subject);document.getElementById("topicPanel").scrollIntoView({behavior:"smooth",block:"start"})}
-function closeTopics(){document.getElementById("topicPanel")?.classList.add("hidden")}
-function renderTopics(subject){let topics=data.subjects[subject]||[];document.getElementById("subjectBar").style.width=pct(topics)+"%";document.getElementById("topicList").innerHTML=topics.map((t,i)=>`<div class="row"><label><input type="checkbox" ${t.done?"checked":""} onchange="toggleTopic('${esc(subject)}',${i},this.checked)"><span>${esc(t.name)}</span></label><span class="pill">${t.done?"Done":"To do"}</span></div>`).join("")||'<p class="empty">No topics yet. Add one below.</p>'}
-function toggleTopic(subject,i,v){data.subjects[subject][i].done=v;save();renderTopics(subject)}
-document.getElementById("topicForm").addEventListener("submit",e=>{e.preventDefault();let s=document.getElementById("topicTitle").textContent,n=document.getElementById("newTopic").value.trim();if(!n)return;data.subjects[s].push({name:n,done:false});document.getElementById("newTopic").value="";save();renderTopics(s)})
-function subjectCard(s,compact=false){let ts=data.subjects[s]||[];return `<div class="subject" onclick="openTopics('${esc(s)}')"><div class="subject-top"><h3>${esc(s)}</h3><span class="pill">${pct(ts)}%</span></div><div class="muted small">${ts.filter(t=>t.done).length} of ${ts.length} topics complete</div><div class="bar"><span style="width:${pct(ts)}%"></span></div><div class="hint">Open workspace →</div></div>`}
-function renderSubjects(){document.getElementById("subjectCards").innerHTML=Object.keys(data.subjects).map(s=>subjectCard(s)).join("");document.getElementById("dashboardSubjects").innerHTML=Object.keys(data.subjects).map(s=>subjectCard(s,true)).join("")}
-document.getElementById("taskForm").addEventListener("submit",e=>{e.preventDefault();data.tasks.push({id:Date.now(),name:document.getElementById("taskName").value.trim(),subject:document.getElementById("taskSubject").value,date:document.getElementById("taskDate").value,done:false});e.target.reset();save()})
-function renderTasks(){let ts=[...data.tasks].sort((a,b)=>Number(a.done)-Number(b.done));document.getElementById("taskList").innerHTML=ts.length?ts.map(t=>`<div class="row"><label><input type="checkbox" ${t.done?"checked":""} onchange="toggleTask(${t.id},this.checked)"><span><span style="${t.done?"text-decoration:line-through;color:var(--muted)":""}">${esc(t.name)}</span><div class="hint">${esc(t.subject)}${t.date?" • Due "+esc(t.date):""}</div></span></label><button aria-label="Delete task" onclick="deleteTask(${t.id})">×</button></div>`).join(""):'<div class="empty">No tasks yet. Add your first task above.</div>';document.getElementById("todayList").innerHTML=ts.filter(t=>!t.done).slice(0,3).map(t=>`<div class="row"><span>${esc(t.name)}<div class="hint">${esc(t.subject)}${t.date?" • "+esc(t.date):""}</div></span><button onclick="toggleTask(${t.id},true)">Done ✓</button></div>`).join("")||'<p class="muted">Nothing pending. Add one small task to get started.</p>'}
-function toggleTask(id,v){let t=data.tasks.find(t=>t.id===id);if(t)t.done=v;save()}
-function deleteTask(id){data.tasks=data.tasks.filter(t=>t.id!==id);save()}
-function renderStages(){document.getElementById("stageCards").innerHTML=data.stages.map((s,i)=>`<div class="panel"><div class="eyebrow">STAGE ${String(i+1).padStart(2,"0")}</div><h3>${esc(s.name)}</h3><select aria-label="Stage status" onchange="data.stages[${i}].status=this.value;save()">${["Planned","Active","Completed","Archived"].map(x=>`<option ${s.status===x?"selected":""}>${x}</option>`).join("")}</select><p class="hint" style="margin-top:10px">Customizable roadmap stage</p></div>`).join("");document.getElementById("stageSettings").innerHTML=data.stages.map((s,i)=>`<div class="row"><span>${esc(s.name)} <span class="pill">${esc(s.status)}</span></span><button onclick="renameStage(${i})">Rename</button><button onclick="removeStage(${i})">×</button></div>`).join("");document.getElementById("caSubjects").innerHTML=Object.entries(caTopics).map(([s,topics])=>`<div class="row"><div><strong>${esc(s)}</strong><div class="hint">${topics.map(esc).join(" • ")}</div></div></div>`).join("")}
-document.getElementById("stageForm").addEventListener("submit",e=>{e.preventDefault();let name=document.getElementById("stageName").value.trim();if(name){data.stages.push({name,status:"Planned"});e.target.reset();save()}})
-function renameStage(i){let n=prompt("Rename this stage:",data.stages[i].name);if(n&&n.trim())data.stages[i].name=n.trim();save()}
-function removeStage(i){if(confirm("Remove this stage from your roadmap?")){data.stages.splice(i,1);save()}}
-function render(){let ts=allTopics(),done=completed();document.getElementById("statDone").textContent=done;document.getElementById("statTopics").textContent="Out of "+ts.length+" topics";document.getElementById("statTasks").textContent=data.tasks.filter(t=>!t.done).length;document.getElementById("statPercent").textContent=pct(ts)+"%";document.getElementById("overallBar").style.width=pct(ts)+"%";renderSubjects();renderTasks();renderStages()}
-function exportData(){let blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),data},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="StudyOS-backup.json";a.click();URL.revokeObjectURL(url)}
-function importData(e){let file=e.target.files[0];if(!file)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result),d=x.data||x;if(!d.subjects||!d.tasks||!d.stages)throw Error("Invalid backup");if(confirm("Replace the current StudyOS data with this backup?")){data=d;save();alert("Backup restored.")}}catch(err){alert("Could not restore: this file is not a valid StudyOS backup.")}e.target.value=""};r.readAsText(file)}
-function resetData(){if(confirm("Delete all StudyOS data from this browser? Export a backup first. This cannot be undone.")){data=fresh();save();showPage("dashboard")}}
-render();
+function newTopic(name){return {id:uid(),name,status:"Not started",notes:"",resource:"",lectures:0,practice:0,revisions:0,nextRevision:"",weak:false}}
+function newSubject(name,topics=[]){return {id:uid(),name,notes:"",resource:"",topics:topics.map(newTopic)}}
+function newStage(name,status="Planned",subjects=[]){return {id:uid(),name,status,notes:"",subjects}}
+function freshData(){
+ let stages=[newStage("Class 11","Active",Object.entries(syllabus).map(([n,t])=>newSubject(n,t))),newStage("Class 12"),newStage("CA Foundation","Planned",Object.entries(foundation).map(([n,t])=>newSubject(n,t))),newStage("CA Intermediate"),newStage("Articleship"),newStage("CA Final"),newStage("Future Qualifications")];
+ return {version:3,stages,tasks:[],tests:[],mistakes:[],statuses:[...defaultStatuses],milestones:[]}
+}
+function normalize(data){
+ if(!data||!Array.isArray(data.stages))return freshData();
+ data.version=3;data.tasks=data.tasks||[];data.tests=data.tests||[];data.mistakes=data.mistakes||[];data.milestones=data.milestones||[];data.statuses=data.statuses||[...defaultStatuses];
+ data.stages=data.stages.map(s=>{
+  let stage={...newStage(s.name||"Untitled stage"),...s,id:s.id||uid(),subjects:[]};
+  if(Array.isArray(s.subjects))stage.subjects=s.subjects.map(sub=>({...newSubject(sub.name||"Untitled subject"),...sub,id:sub.id||uid(),topics:(sub.topics||[]).map(t=>typeof t==="string"?newTopic(t):({...newTopic(t.name||"Untitled topic"),...t,id:t.id||uid(),status:t.status||(t.done?"Mastered":"Not started")}))}));
+  else if(s.id==="class11"||s.name==="Class 11"){stage.subjects=Object.entries(syllabus).map(([n,t])=>newSubject(n,t))}
+  return stage
+ });
+ return data
+}
+function loadData(){
+ try{
+  let raw=localStorage.getItem("studyos_v3")||localStorage.getItem("studyos_v2")||localStorage.getItem("studyos_v1");
+  if(!raw)return freshData();
+  let old=JSON.parse(raw);
+  if(old.data)old=old.data;
+  if(old.version===2&&old.subjects&&!old.stages){
+   let d=freshData();
+   for(let [name,s] of Object.entries(old.subjects)){
+    let stage=d.stages.find(x=>x.name==="Class 11");
+    if(stage)stage.subjects.push({...newSubject(name),notes:s.notes||"",topics:(s.topics||[]).map(t=>typeof t==="string"?newTopic(t):({...newTopic(t.name||"Topic"),...t}))});
+   }
+   d.tasks=old.tasks||[];d.tests=old.tests||[];d.mistakes=old.mistakes||[];
+   if(old.stages)d.stages=old.stages.map(s=>typeof s==="string"?newStage(s):newStage(s.name,s.status));
+   return d
+  }
+  return normalize(old)
+ }catch(e){return freshData()}
+}
+let data=loadData(),currentStageId=null,currentSubjectId=null,currentTab="topics";
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function stageById(id){return data.stages.find(s=>s.id===id)}
+function currentStage(){return stageById(currentStageId)}
+function subjectById(id){return currentStage()?.subjects.find(s=>s.id===id)}
+function dateLabel(v){if(!v)return"No date";let d=new Date(v+"T12:00:00");return isNaN(d)?"Invalid date":d.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"})}
+function stageTopics(s){return (s.subjects||[]).flatMap(sub=>sub.topics||[])}
+function allTopics(){return data.stages.flatMap(s=>(s.subjects||[]).flatMap(sub=>(sub.topics||[]).map(t=>({...t,stageId:s.id,stage:s.name,subjectId:sub.id,subject:sub.name}))))}
+function mastered(ts){return ts.filter(t=>t.status==="Mastered").length}
+function pct(ts){return ts.length?Math.round(mastered(ts)/ts.length*100):0}
+function save(){
+ try{localStorage.setItem("studyos_v3",JSON.stringify(data));$("saveInfo").textContent="Saved locally · "+new Date().toLocaleTimeString()}
+ catch(e){alert("Browser storage failed. Export a JSON backup and check available storage.")}
+ renderAll()
+}
+function page(id){
+ document.querySelectorAll(".page").forEach(el=>el.classList.toggle("hidden",el.id!==id));
+ document.querySelectorAll("[data-page]").forEach(el=>el.classList.toggle("active",el.dataset.page===id));
+ window.scrollTo({top:0,behavior:"smooth"})
+}
+const navItems=[["home","⌂","Overview"],["planner","✓","Planner"],["revision","↻","Revision"],["tests","◫","Tests"],["settings","⚙","Settings"]];
+function renderNav(){
+ $("mainNav").innerHTML=navItems.map(([id,icon,name])=>`<button class="navbtn ${document.getElementById(id)?.classList.contains("hidden")?"":"active"}" data-page="${id}" onclick="page('${id}')"><span>${icon}</span><span class="grow">${name}</span></button>`).join("");
+ $("stageNav").innerHTML=data.stages.filter(s=>s.status!=="Archived").map(s=>`<button class="navbtn ${currentStageId===s.id?"active":""}" onclick="openStage('${s.id}')"><span>▤</span><span class="grow">${esc(s.name)}</span><small>›</small></button>`).join("");
+}
+function addStage(){
+ let name=prompt("Name your new stage:", "Class 12");
+ if(!name||!name.trim())return;
+ name=name.trim();
+ if(data.stages.some(s=>s.name.toLowerCase()===name.toLowerCase()))return alert("A stage with that name already exists.");
+ let s=newStage(name,"Planned");
+ data.stages.push(s);currentStageId=s.id;currentSubjectId=null;save();openStage(s.id)
+}
+function manageStages(){page("settings");$("manageStageList").scrollIntoView({behavior:"smooth",block:"start"})}
+function editStage(id){
+ let s=stageById(id);if(!s)return;
+ let name=prompt("Stage name:",s.name);if(name===null||!name.trim())return;
+ name=name.trim();
+ if(data.stages.some(x=>x.id!==id&&x.name.toLowerCase()===name.toLowerCase()))return alert("That stage name already exists.");
+ s.name=name;
+ let status=prompt("Status: Planned, Active, Completed or Archived",s.status);
+ if(status&&["Planned","Active","Completed","Archived"].includes(status))s.status=status;
+ save()
+}
+function moveStage(id,dir){
+ let i=data.stages.findIndex(s=>s.id===id),j=i+dir;
+ if(i<0||j<0||j>=data.stages.length)return;
+ [data.stages[i],data.stages[j]]=[data.stages[j],data.stages[i]];save()
+}
+function archiveStage(id){
+ let s=stageById(id);if(!s)return;
+ if(s.status==="Archived")s.status="Planned";
+ else{if(!confirm("Archive this stage? Its subjects and records will be kept."))return;s.status="Archived";if(currentStageId===id)page("home")}
+ save()
+}
+function deleteStage(id){
+ let s=stageById(id);if(!s)return;
+ if(!confirm(`Permanently delete "${s.name}" and all its stage subjects and topics? Export a backup first.`))return;
+ data.stages=data.stages.filter(x=>x.id!==id);
+ if(currentStageId===id){currentStageId=null;currentSubjectId=null}
+ save();page("settings")
+}
+function renderStageManagement(){
+ $("manageStageList").innerHTML=data.stages.map((s,i)=>`<div class="listrow"><div class="grow"><strong>${esc(s.name)}</strong><div class="tiny">${esc(s.status)} · ${(s.subjects||[]).length} subjects</div></div><div class="actions"><button onclick="editStage('${s.id}')">Rename</button><button onclick="moveStage('${s.id}',-1)">↑</button><button onclick="moveStage('${s.id}',1)">↓</button><button onclick="archiveStage('${s.id}')">${s.status==="Archived"?"Restore":"Archive"}</button><button class="danger" onclick="deleteStage('${s.id}')">Delete</button></div></div>`).join("")||'<div class="empty">No stages. Add one from the sidebar.</div>'
+}
+function openStage(id){
+ let s=stageById(id);if(!s)return;
+ if(s.status==="Archived"&&!confirm("This stage is archived. Open it anyway?"))return;
+ currentStageId=id;currentSubjectId=null;page("stagePage");renderStagePage();renderNav()
+}
+function renderStagePage(){
+ let s=currentStage();if(!s)return;
+ $("stageTitle").textContent=s.name;$("stageMeta").textContent=s.status+" · "+(s.subjects||[]).length+" subjects";
+ $("stageNotes").value=s.notes||"";
+ let ts=stageTopics(s);$("stageMastered").textContent=mastered(ts);$("stageSubjectCount").textContent=s.subjects.length;$("stageProgress").textContent=pct(ts)+"%";$("stageBar").style.width=pct(ts)+"%";
+ $("stageSubjects").innerHTML=s.subjects.map(sub=>`<div class="card" onclick="openSubject('${sub.id}')"><div class="between"><h3>${esc(sub.name)}</h3><span class="pill">${pct(sub.topics)}%</span></div><div class="tiny">${mastered(sub.topics)} / ${sub.topics.length} mastered</div><div class="bar"><span style="width:${pct(sub.topics)}%"></span></div><div class="tiny">Open subject →</div></div>`).join("")||'<div class="empty">No subjects yet. Add a subject to start building your syllabus.</div>';
+ let sel=$("syllabusSubject");sel.innerHTML=s.subjects.map(sub=>`<option value="${sub.id}">${esc(sub.name)}</option>`).join("")
+}
+function saveStageNotes(){let s=currentStage();if(!s)return;s.notes=$("stageNotes").value;save()}
+function addSubject(){
+ let s=currentStage();if(!s)return alert("Open a stage first.");
+ let name=prompt("Subject name:");if(!name||!name.trim())return;name=name.trim();
+ if(s.subjects.some(x=>x.name.toLowerCase()===name.toLowerCase()))return alert("That subject already exists.");
+ s.subjects.push(newSubject(name));save()
+}
+function openSubject(id){
+ let s=currentStage();if(!s)return;let sub=s.subjects.find(x=>x.id===id);if(!sub)return;
+ currentSubjectId=id;page("subjectPage");renderSubjectPage()
+}
+function renderSubjectPage(){
+ let sub=subjectById(currentSubjectId);if(!sub)return;
+ $("subjectTitle").textContent=sub.name;$("subjectSummary").textContent=currentStage().name;
+ $("subjectMastered").textContent=mastered(sub.topics);$("subjectTotal").textContent=sub.topics.length;$("subjectProgress").textContent=pct(sub.topics)+"%";$("subjectBar").style.width=pct(sub.topics)+"%";
+ document.querySelectorAll("#subjectTabs button").forEach(b=>b.classList.toggle("active",b.dataset.tab===currentTab));
+ document.querySelectorAll(".subjectTab").forEach(el=>el.classList.add("hidden"));
+ if(currentTab==="topics"){$("subjectTopics").classList.remove("hidden");renderTopics()}
+ if(currentTab==="notes"){$("subjectNotesPanel").classList.remove("hidden");$("subjectNotes").value=sub.notes||""}
+ if(currentTab==="resources"){$("subjectResourcesPanel").classList.remove("hidden");$("subjectResource").value=sub.resource||"";renderTopicResources()}
+}
+$("subjectTabs").addEventListener("click",e=>{let b=e.target.closest("[data-tab]");if(!b)return;currentTab=b.dataset.tab;renderSubjectPage()});
+function renderTopics(){
+ let sub=subjectById(currentSubjectId);
+ $("subjectTopics").innerHTML=`<div class="between"><h2>Topics and progress</h2><button class="primary" onclick="addTopic()">＋ Add topic</button></div>`+(sub.topics.map(t=>`<div class="topicrow"><div><strong>${esc(t.name)}</strong><div class="topicmeta">${t.lectures||0} lectures · ${t.practice||0} practice · ${t.revisions||0} revisions ${t.nextRevision?"· Revision: "+dateLabel(t.nextRevision):""}${t.weak?" · <span style='color:var(--red)'>Weak area</span>":""}</div><details style="margin-top:7px"><summary class="tiny">Topic notes</summary><p>${esc(t.notes||"No notes yet.")}</p></details></div><div class="actions" style="align-items:flex-start"><select aria-label="Topic status" onchange="setTopicStatus('${t.id}',this.value)">${data.statuses.map(x=>`<option ${x===t.status?"selected":""}>${esc(x)}</option>`).join("")}</select><button onclick="editTopic('${t.id}')">Edit</button><button onclick="deleteTopic('${t.id}')">×</button></div></div>`).join("")||'<div class="empty">No topics yet. Add a topic or import your syllabus.</div>')
+}
+function addTopic(){
+ let sub=subjectById(currentSubjectId);if(!sub)return;
+ let name=prompt("Topic name:");if(!name||!name.trim())return;
+ sub.topics.push(newTopic(name.trim()));save();renderSubjectPage()
+}
+function setTopicStatus(id,status){
+ let sub=subjectById(currentSubjectId),t=sub?.topics.find(x=>x.id===id);if(!t)return;
+ t.status=status;save();renderSubjectPage()
+}
+function editTopic(id){
+ let sub=subjectById(currentSubjectId),t=sub?.topics.find(x=>x.id===id);if(!t)return;
+ let name=prompt("Topic name:",t.name);if(name===null)return;if(name.trim())t.name=name.trim();
+ let notes=prompt("Topic notes:",t.notes||"");if(notes!==null)t.notes=notes;
+ let lectures=prompt("Lectures completed:",t.lectures||0);if(lectures!==null&&lectures.trim()!==""&&Number.isFinite(+lectures)&&+lectures>=0)t.lectures=+lectures;
+ let practice=prompt("Practice sessions completed:",t.practice||0);if(practice!==null&&practice.trim()!==""&&Number.isFinite(+practice)&&+practice>=0)t.practice=+practice;
+ let rev=prompt("Next revision date (YYYY-MM-DD, blank to clear):",t.nextRevision||"");if(rev!==null)t.nextRevision=rev.trim();
+ t.weak=confirm("Mark this topic as a weak area?");
+ save();renderSubjectPage()
+}
+function deleteTopic(id){let sub=subjectById(currentSubjectId);if(!sub)return;if(!confirm("Delete this topic and its notes?"))return;sub.topics=sub.topics.filter(t=>t.id!==id);save();renderSubjectPage()}
+function saveSubjectNotes(){let s=subjectById(currentSubjectId);if(!s)return;s.notes=$("subjectNotes").value;save();alert("Notes saved.")}
+function saveSubjectResource(){let s=subjectById(currentSubjectId);if(!s)return;s.resource=$("subjectResource").value.trim();save()}
+function renderTopicResources(){let s=subjectById(currentSubjectId);$("topicResources").innerHTML=`<h3>Topic resource links</h3>`+s.topics.map(t=>`<div class="listrow"><div class="grow"><strong>${esc(t.name)}</strong>${t.resource?`<div><a href="${esc(t.resource)}" target="_blank" rel="noopener">Open resource ↗</a></div>`:""}</div><button onclick="editTopicResource('${t.id}')">Set link</button></div>`).join("")}
+function editTopicResource(id){let sub=subjectById(currentSubjectId),t=sub?.topics.find(x=>x.id===id);if(!t)return;let u=prompt("Resource URL:",t.resource||"");if(u!==null){t.resource=u.trim();save();renderSubjectPage()}}
+$("syllabusForm").addEventListener("submit",e=>{
+ e.preventDefault();let s=currentStage(),sub=s?.subjects.find(x=>x.id===$("syllabusSubject").value);if(!sub)return alert("Create a subject first.");
+ let names=$("syllabusText").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ if(!names.length)return;
+ if($("syllabusMode").value==="replace"&&!confirm("Replace every topic in this subject? This removes its current topic records. Export a backup first."))return;
+ if($("syllabusMode").value==="replace")sub.topics=[];
+ let existing=new Set(sub.topics.map(t=>t.name.toLowerCase()));
+ names.forEach(n=>{if(!existing.has(n.toLowerCase()))sub.topics.push(newTopic(n))});
+ $("syllabusText").value="";save();alert("Syllabus imported.")
+});
+function allChoiceOptions(){
+ let arr=[];
+ data.stages.forEach(s=>(s.subjects||[]).forEach(sub=>arr.push({value:s.id+"|"+sub.id,label:s.name+" — "+sub.name})));
+ if(!arr.length)arr.push({value:"",label:"No subjects created yet"});
+ return arr
+}
+function populateChoice(id){$(id).innerHTML=allChoiceOptions().map(o=>`<option value="${esc(o.value)}">${esc(o.label)}</option>`).join("")}
+$("taskForm").addEventListener("submit",e=>{
+ e.preventDefault();data.tasks.push({id:uid(),name:$("taskName").value.trim(),ref:$("taskSubject").value,date:$("taskDate").value,priority:$("taskPriority").value,minutes:Number($("taskMinutes").value)||30,done:false});
+ e.target.reset();$("taskMinutes").value=30;save()
+});
+function taskSubjectLabel(t){let [sid,subid]=(t.ref||"").split("|"),s=stageById(sid),sub=s?.subjects.find(x=>x.id===subid);return sub?s.name+" — "+sub.name:"General"}
+function overdue(t){return !t.done&&t.date&&t.date<today()}
+function renderTasks(){
+ let f=$("taskFilter").value,arr=[...data.tasks].sort((a,b)=>Number(a.done)-Number(b.done)||(a.date||"9999").localeCompare(b.date||"9999"));
+ arr=arr.filter(t=>f==="all"||f==="open"&&!t.done||f==="done"&&t.done||f==="overdue"&&overdue(t));
+ $("taskList").innerHTML=arr.map(t=>`<div class="listrow"><input type="checkbox" ${t.done?"checked":""} onchange="toggleTask('${t.id}',this.checked)"><div class="grow"><strong style="${t.done?"text-decoration:line-through;color:var(--muted)":""}">${esc(t.name)}</strong><div class="tiny">${esc(taskSubjectLabel(t))} · ${t.minutes||30} min · ${esc(t.priority)} · ${t.date?dateLabel(t.date):"No date"} ${overdue(t)?"· OVERDUE":""}</div></div><button onclick="editTask('${t.id}')">Edit</button><button onclick="deleteTask('${t.id}')">×</button></div>`).join("")||'<div class="empty">No tasks match this filter.</div>'
+}
+function toggleTask(id,v){let t=data.tasks.find(x=>x.id===id);if(t)t.done=v;save()}
+function editTask(id){let t=data.tasks.find(x=>x.id===id);if(!t)return;let n=prompt("Task name:",t.name);if(n===null)return;if(n.trim())t.name=n.trim();let d=prompt("Due date YYYY-MM-DD, blank for none:",t.date||"");if(d!==null)t.date=d.trim();let p=prompt("Priority: High, Medium or Low",t.priority);if(["High","Medium","Low"].includes(p))t.priority=p;save()}
+function deleteTask(id){if(confirm("Delete this task?")){data.tasks=data.tasks.filter(t=>t.id!==id);save()}}
+function renderHome(){
+ let ts=allTopics();$("statMastered").textContent=mastered(ts);$("statTopicTotal").textContent="of "+ts.length+" topics";$("statTasks").textContent=data.tasks.filter(t=>!t.done).length;$("statProgress").textContent=pct(ts)+"%";$("statBar").style.width=pct(ts)+"%";
+ $("homeTasks").innerHTML=data.tasks.filter(t=>!t.done).sort((a,b)=>(a.date||"9999").localeCompare(b.date||"9999")).slice(0,4).map(t=>`<div class="listrow"><div class="grow"><strong>${esc(t.name)}</strong><div class="tiny">${esc(taskSubjectLabel(t))} · ${t.date?dateLabel(t.date):"No due date"}</div></div></div>`).join("")||'<div class="empty">No pending tasks. Add one from Planner.</div>';
+ let due=allTopics().filter(t=>t.nextRevision&&t.nextRevision<=today()&&t.status!=="Mastered");
+ $("homeRevision").innerHTML=due.slice(0,4).map(t=>`<div class="listrow"><div class="grow"><strong>${esc(t.name)}</strong><div class="tiny">${esc(t.stage)} · ${dateLabel(t.nextRevision)}</div></div></div>`).join("")||'<div class="empty">No revisions due.</div>';
+ $("homeStages").innerHTML=data.stages.filter(s=>s.status!=="Archived").map(s=>`<div class="card" onclick="openStage('${s.id}')"><div class="between"><h3>${esc(s.name)}</h3><span class="pill">${pct(stageTopics(s))}%</span></div><div class="tiny">${s.subjects.length} subjects · ${stageTopics(s).length} topics · ${esc(s.status)}</div><div class="bar"><span style="width:${pct(stageTopics(s))}%"></span></div></div>`).join("")
+}
+function renderRevision(){
+ let ts=allTopics(),due=ts.filter(t=>t.nextRevision&&t.nextRevision<=today()&&t.status!=="Mastered"),weak=ts.filter(t=>t.weak),done=ts.filter(t=>t.status==="Revised"||t.status==="Mastered");
+ $("revDueCount").textContent=due.length;$("revWeakCount").textContent=weak.length;$("revDoneCount").textContent=done.length;
+ $("revisionList").innerHTML=due.map(t=>`<div class="listrow"><div class="grow"><strong>${esc(t.name)}</strong><div class="tiny">${esc(t.stage)} · ${esc(t.subject)} · Due ${dateLabel(t.nextRevision)}</div></div><button onclick="markRevised('${t.stageId}','${t.subjectId}','${t.id}')">Revised ✓</button></div>`).join("")||'<div class="empty">Nothing due. Add revision dates from a topic’s Edit button.</div>';
+ $("mistakeList").innerHTML=data.mistakes.map(m=>`<div class="listrow"><div class="grow"><strong>${esc(m.topic)}</strong><div class="tiny">${esc(m.label)} · ${dateLabel(m.date)}</div><p>${esc(m.text)}</p></div><button onclick="deleteMistake('${m.id}')">×</button></div>`).join("")||'<div class="empty">No mistakes logged yet.</div>'
+}
+function markRevised(sid,subid,tid){let s=stageById(sid),sub=s?.subjects.find(x=>x.id===subid),t=sub?.topics.find(x=>x.id===tid);if(!t)return;t.status=data.statuses.includes("Revised")?"Revised":data.statuses[data.statuses.length-1];t.revisions=(t.revisions||0)+1;let d=new Date();d.setDate(d.getDate()+7);t.nextRevision=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");save()}
+function renderTests(){
+ let ts=data.tests,avg=ts.length?ts.reduce((n,t)=>n+t.score/t.total*100,0)/ts.length:null;
+ $("testCount").textContent=ts.length;$("testAverage").textContent=avg===null?"—":avg.toFixed(1)+"%";$("testBest").textContent=ts.length?Math.max(...ts.map(t=>t.score/t.total*100)).toFixed(1)+"%":"—";
+ $("testList").innerHTML=ts.map(t=>`<div class="listrow"><div class="grow"><strong>${esc(t.name)}</strong><div class="tiny">${esc(t.label)} · ${dateLabel(t.date)} · ${t.score}/${t.total} (${(t.score/t.total*100).toFixed(1)}%)</div>${t.improve?`<div class="tiny">Improve: ${esc(t.improve)}</div>`:""}</div><button onclick="deleteTest('${t.id}')">×</button></div>`).join("")||'<div class="empty">Record your first test.</div>';
+ $("analytics").innerHTML=data.stages.map(s=>{let ss=ts.filter(t=>t.ref?.startsWith(s.id+"|")),a=ss.length?ss.reduce((n,t)=>n+t.score/t.total*100,0)/ss.length:null;return `<div class="listrow"><div class="grow"><strong>${esc(s.name)}</strong><div class="tiny">${ss.length} tests · ${mastered(stageTopics(s))}/${stageTopics(s).length} topics mastered</div></div><span class="pill">${a===null?"No scores":a.toFixed(1)+"% average"}</span></div>`}).join("")
+}
+$("testForm").addEventListener("submit",e=>{e.preventDefault();let score=Number($("testScore").value),total=Number($("testTotal").value);if(total<=0||score<0||score>total)return alert("Score must be between zero and total marks.");let ref=$("testSubject").value;data.tests.unshift({id:uid(),name:$("testName").value.trim(),ref,label:choiceLabel(ref),score,total,date:$("testDate").value||today(),improve:$("testImprove").value.trim()});e.target.reset();save()});
+function choiceLabel(ref){let [sid,subid]=(ref||"").split("|"),s=stageById(sid),sub=s?.subjects.find(x=>x.id===subid);return sub?s.name+" — "+sub.name:"General"}
+function deleteTest(id){if(confirm("Delete this test record?")){data.tests=data.tests.filter(t=>t.id!==id);save()}}
+$("mistakeForm").addEventListener("submit",e=>{e.preventDefault();let ref=$("mistakeSubject").value;data.mistakes.unshift({id:uid(),ref,label:choiceLabel(ref),topic:$("mistakeTopic").value.trim(),text:$("mistakeText").value.trim(),date:today()});e.target.reset();save()});
+function deleteMistake(id){if(confirm("Delete this mistake entry?")){data.mistakes=data.mistakes.filter(m=>m.id!==id);save()}}
+function saveStatuses(){
+ let list=$("statusEditor").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ if(!list.length)return alert("Keep at least one status.");
+ data.statuses=[...new Set(list)];save();alert("Status list saved.")
+}
+function backup(){
+ let payload={app:"StudyOS",version:3,exportedAt:new Date().toISOString(),data};
+ let blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+ let url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="StudyOS-backup-"+today()+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)
+}
+function restoreBackup(e){
+ let f=e.target.files[0];if(!f)return;
+ let r=new FileReader();
+ r.onload=()=>{
+  try{
+   let obj=JSON.parse(r.result),candidate=obj.data||obj;
+   if(!Array.isArray(candidate.stages))throw Error("Invalid backup");
+   if(!confirm("Replace current StudyOS data with this backup? Export your current data first if needed."))return;
+   data=normalize(candidate);currentStageId=null;currentSubjectId=null;save();page("home");alert("Backup restored.")
+  }catch(err){alert("That file is not a recognised StudyOS JSON backup.")}
+  e.target.value=""
+ };
+ r.readAsText(f)
+}
+function resetData(){
+ if(!confirm("Delete all StudyOS data stored in this browser?"))return;
+ if(!confirm("This cannot be undone without a backup. Continue?"))return;
+ data=freshData();currentStageId=null;currentSubjectId=null;
+ localStorage.removeItem("studyos_v1");localStorage.removeItem("studyos_v2");save();page("home")
+}
+function renderAll(){
+ renderNav();renderHome();renderStageManagement();renderTasks();renderRevision();renderTests();
+ populateChoice("taskSubject");populateChoice("testSubject");populateChoice("mistakeSubject");
+ $("statusEditor").value=data.statuses.join("\n");
+ if(currentStageId&&stageById(currentStageId)&&!$("stagePage").classList.contains("hidden"))renderStagePage();
+ if(currentSubjectId&&subjectById(currentSubjectId)&&!$("subjectPage").classList.contains("hidden"))renderSubjectPage()
+}
+$("mainNav").addEventListener("click",e=>{let b=e.target.closest("[data-page]");if(b)page(b.dataset.page)});
+$("taskFilter").value="all";
+renderAll();
 </script>
 </body>
 </html>
